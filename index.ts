@@ -14,16 +14,10 @@ const createPipes = (y) =>
 
 const gamePipes$ = interval(500).pipe(
   scan(
-    (acc) => {
-      console.log("gamePipes acc.length ===>", acc.length);
-      return (acc.length < 2 ? [...acc, createPipes(gameSize)] : acc)
-        .map((c) => {
-          console.log(c);
-          return c;
-        })
+    (acc) =>
+      (acc.length < 2 ? [...acc, createPipes(gameSize)] : acc)
         .filter((c) => c.some((e) => e.y > 0))
-        .map((cols) => cols.map((e) => gamePipe(e.x, e.y - 1)));
-    },
+        .map((cols) => cols.map((e) => gamePipe(e.x, e.y - 1))),
     [createPipes(gameSize / 2), createPipes(gameSize)]
   )
 );
